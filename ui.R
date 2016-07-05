@@ -1,0 +1,11 @@
+shinyUI(
+        tagList(
+                uiInit(),
+                conditionalPanel(
+                        condition=(isDesktop),
+                        uiDesktop()),
+                conditionalPanel(
+                        condition=(isMobile),
+                        uiMobile())
+        )
+)
