@@ -1,0 +1,24 @@
+{
+        "name":"Template App",
+        "identifier":"eu.ownyourdata.template",
+        "type":"external",
+        "description":"an R template for OYD apps",
+        "permissions":["eu.ownyourdata.template:read",
+        "eu.ownyourdata.template:write",
+        "eu.ownyourdata.template:update",
+        "eu.ownyourdata.template:delete",
+        "eu.ownyourdata.template.extension:read",
+        "eu.ownyourdata.template.extension:write",
+        "eu.ownyourdata.template.extension:update",
+        "eu.ownyourdata.template.extension:delete",
+        "eu.ownyourdata.scheduler:read",
+        "eu.ownyourdata.scheduler:write",
+        "eu.ownyourdata.scheduler:update",
+        "eu.ownyourdata.scheduler:delete",
+        "eu.ownyourdata.scheduler.email_config:read",
+        "eu.ownyourdata.scheduler.email_config:write",
+        "eu.ownyourdata.scheduler.email_config:update",
+        "eu.ownyourdata.scheduler.email_config:delete"]
+}
+base64-encoded manifest (https://www.base64encode.org/)
+ew0KICAgICAgICAibmFtZSI6IlRlbXBsYXRlIEFwcCIsDQogICAgICAgICJpZGVudGlmaWVyIjoiZXUub3dueW91cmRhdGEudGVtcGxhdGUiLA0KICAgICAgICAidHlwZSI6ImV4dGVybmFsIiwNCiAgICAgICAgImRlc2NyaXB0aW9uIjoiYW4gUiB0ZW1wbGF0ZSBmb3IgT1lEIGFwcHMiLA0KICAgICAgICAicGVybWlzc2lvbnMiOlsiZXUub3dueW91cmRhdGEudGVtcGxhdGU6cmVhZCIsDQogICAgICAgICJldS5vd255b3VyZGF0YS50ZW1wbGF0ZTp3cml0ZSIsDQogICAgICAgICJldS5vd255b3VyZGF0YS50ZW1wbGF0ZTp1cGRhdGUiLA0KICAgICAgICAiZXUub3dueW91cmRhdGEudGVtcGxhdGU6ZGVsZXRlIiwNCiAgICAgICAgImV1Lm93bnlvdXJkYXRhLnRlbXBsYXRlLmV4dGVuc2lvbjpyZWFkIiwNCiAgICAgICAgImV1Lm93bnlvdXJkYXRhLnRlbXBsYXRlLmV4dGVuc2lvbjp3cml0ZSIsDQogICAgICAgICJldS5vd255b3VyZGF0YS50ZW1wbGF0ZS5leHRlbnNpb246dXBkYXRlIiwNCiAgICAgICAgImV1Lm93bnlvdXJkYXRhLnRlbXBsYXRlLmV4dGVuc2lvbjpkZWxldGUiLA0KICAgICAgICAiZXUub3dueW91cmRhdGEuc2NoZWR1bGVyOnJlYWQiLA0KICAgICAgICAiZXUub3dueW91cmRhdGEuc2NoZWR1bGVyOndyaXRlIiwNCiAgICAgICAgImV1Lm93bnlvdXJkYXRhLnNjaGVkdWxlcjp1cGRhdGUiLA0KICAgICAgICAiZXUub3dueW91cmRhdGEuc2NoZWR1bGVyOmRlbGV0ZSIsDQogICAgICAgICJldS5vd255b3VyZGF0YS5zY2hlZHVsZXIuZW1haWxfY29uZmlnOnJlYWQiLA0KICAgICAgICAiZXUub3dueW91cmRhdGEuc2NoZWR1bGVyLmVtYWlsX2NvbmZpZzp3cml0ZSIsDQogICAgICAgICJldS5vd255b3VyZGF0YS5zY2hlZHVsZXIuZW1haWxfY29uZmlnOnVwZGF0ZSIsDQogICAgICAgICJldS5vd255b3VyZGF0YS5zY2hlZHVsZXIuZW1haWxfY29uZmlnOmRlbGV0ZSJdDQp9

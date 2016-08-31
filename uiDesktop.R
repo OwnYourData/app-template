@@ -16,12 +16,7 @@ uiDesktop <- function(){
                                 windowTitle=paste0(appTitle, ' | OwnYourData'),
                         tabPanel(HTML(paste0('hidden', 
                                              '</a></li>',
-                                             '<li><a id="returnPIAlink" href="#">zurück zur PIA')),
-                                 fluidRow(
-                                         column(1),
-                                         column(10,
-                                                bsAlert('piaStatus'))
-                                 )
+                                             '<li><a id="returnPIAlink" href="#">zurück zur PIA'))
                         ),
                         tabPanel(appTitle,
                                  value = appName,
