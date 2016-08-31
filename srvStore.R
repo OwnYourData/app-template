@@ -1,5 +1,9 @@
+# functions required in the Store tab
+# last update:2016-07-28
+
 source('oyd_sheet.R', local=TRUE)
 
+# handle HTML5 Local Storage used for saving PIA connection data
 observe({
         if(!is.null(input$localStore)){
                 if (input$localStore <= 0){
@@ -15,16 +19,18 @@ observe({
         }
 })
 
+# display current token
 output$current_token <- renderText({
-        repo <- currRepo()
-        if (length(repo) == 0) {
+        app <- currApp()
+        if (length(app) == 0) {
                 '<strong>Token:</strong> nicht verfügbar'
         } else {
                 paste0('<strong>Token:</strong><br><small>', 
-                       repo[['token']], '</small>')
+                       app[['token']], '</small>')
         }
 })
 
+# display number of records in (main) repository
 output$curr_records <- renderText({
         data <- currData()
         paste('<strong>Datensätze:</strong>',

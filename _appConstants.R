@@ -1,4 +1,4 @@
 appName <- 'template'
 appTitle <- 'Template'
 appTitleStatus <- 'Template'
-repo_app <- 'eu.ownyourdata.template'
+app_id <- 'eu.ownyourdata.template'

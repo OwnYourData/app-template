@@ -1,5 +1,8 @@
 uiStatusItems <- function(){
-        source('uiStatusItemsFixed.R')
-        uiStatusItemsFixed()
-        # uiOutput('uiStatusItemsRender')
+        # source('uiStatusItemsFixed.R')
+        # uiStatusItemsFixed()
+        tagList(
+                bsAlert('dataStatus'),
+                uiOutput('desktopUiStatusItemsRender')
+        )
 }

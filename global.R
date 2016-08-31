@@ -1,3 +1,11 @@
+# functions and varialbes in the global namespace
+# last update:2016-08-24
+
+# Comments ================================================
+# - run locally
+#   runApp('~/cs/ownyourdata/apps/template', host='0.0.0.0', port=1234)
+
+
 # UI files ================================================
 source("uiInit.R")
 source("uiDesktop.R")
@@ -16,74 +24,6 @@ mobileCheck <- "(/(android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blaz
 isMobile <- mobileCheck
 isDesktop <- paste0("!", mobileCheck)
 statTabUiList <- vector()
-
-# App-specific Extensions =================================
-statTabUiHeader <- "tabsetPanel(type='tabs',"
-statTabUiFooter <- ")"
-statTabUiItemHeader <- "tabPanel('"
-statTabUiItemInter <- "',"
-statTabUiItemFooter <- ")"
-tmpFilename <- 'oyd_extensionSetup.R'
-statTabUiConfig <- readChar(tmpFilename, file.info(tmpFilename)$size)
-defaultStatTabLogic <- "
-        getTermMatrix <- function() {
-                data <- currDataSelect()
-                data$dat <- as.POSIXct(data$date, 
-                        format='%Y-%m-%d')
-                dataMin <- min(data$dat, na.rm=TRUE)
-                dataMax <- max(data$dat, na.rm=TRUE)
-                curMin <- as.Date(input$dateRange[1], '%d.%m.%Y')
-                curMax <- as.Date(input$dateRange[2], '%d.%m.%Y')
-                daterange <- seq(curMin, curMax, 'days')
-                data <- data[as.Date(data$dat) %in% daterange, ]
-
-                text <- paste(data$value, collapse = ' ')
-                myCorpus = Corpus(VectorSource(text))
-                myCorpus = tm_map(myCorpus, content_transformer(tolower))
-                myCorpus = tm_map(myCorpus, removePunctuation)
-                myCorpus = tm_map(myCorpus, removeNumbers)
-                myCorpus = tm_map(myCorpus, removeWords,
-                        c(stopwords('SMART'), 
-                        stopwords('en'), 
-                        stopwords('german'), 
-                        'thy', 'thou', 'thee', 'the', 'and', 'but'))
-                myDTM = TermDocumentMatrix(myCorpus,
-                control = list(minWordLength = 1))
-                m = as.matrix(myDTM)
-                sort(rowSums(m), decreasing = TRUE)
-        }
-
-        terms <- function(){
-                withProgress({
-                        setProgress(message = 'Processing corpus...')
-                        getTermMatrix()
-                })
-        }
-
-        wordcloud_rep <- repeatable(wordcloud)
-
-        plotData <- function(){
-                data <- currDataSelect()
-                if(nrow(data) > 0) {
-                        v <- terms()
-                        if(length(v) > 0){
-                                wordcloud_rep(names(v), v, scale=c(4,0.5),
-                                        max.words=input$maxWords,
-                                        colors=brewer.pal(8, 'Dark2'))
-                        } else {
-                                createAlert(session, 'noData', 'noDataAlert', style='info', title='Keine Daten vorhanden',
-                                        content='Erfasse Datensätze oder abonniere ein periodisches Email zur Datensammlung.', append=FALSE)
-                        }
-                } else {
-                        createAlert(session, 'noData', 'noDataAlert', style='info', title='Keine Daten vorhanden',
-                        content='Erfasse Datensätze oder abonniere ein periodisches Email zur Datensammlung.', append=FALSE)
-                }
-        }
-
-        output$plotCloud <- renderPlot({
-                input$dataSheet
-                input$dateRange
-                plotData()
-        })
-"
-
+piaUrl <- ""
+appKey <- ""
+appSecret <- ""

@@ -1,6 +1,5 @@
 shinyUI(
         tagList(
-                uiInit(),
                 conditionalPanel(
                         condition=(isDesktop),
                         uiDesktop()),

@@ -5,18 +5,34 @@ source('uiFooter.R')
 
 uiDesktop <- function(){
         tagList(
+                uiInit(),
                 uiStart(),
                 navbarPage(
-                        uiOutput('hdrImageLink'),
-                                id='page', 
-                                collapsible=TRUE, 
+                        uiOutput('hdrImageLinkDesktop'),
+                                id='mainPage',
+                                selected = appName,
+                                collapsible=TRUE,
                                 inverse=FALSE,
                                 windowTitle=paste0(appTitle, ' | OwnYourData'),
-                        tabPanel(HTML(paste0(appTitle, '</a></li>',
+                        tabPanel(HTML(paste0('hidden', 
+                                             '</a></li>',
                                              '<li><a id="returnPIAlink" href="#">zurück zur PIA')),
+                                 fluidRow(
+                                         column(1),
+                                         column(10,
+                                                bsAlert('piaStatus'))
+                                 )
+                        ),
+                        tabPanel(appTitle,
+                                 value = appName,
+                                 fluidRow(
+                                         column(1),
+                                         column(10,
+                                                bsAlert('piaStatus'))
+                                 ),
                                  uiApp()
                         ),
-                        navbarMenu(icon('wrench'),
+                        navbarMenu(icon('cog'),
                                    uiMenu()
                         ),
                         footer=uiFooter()

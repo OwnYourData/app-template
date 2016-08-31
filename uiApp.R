@@ -1,6 +1,112 @@
-source('appStatus.R', local=TRUE)
-source('appSource.R', local=TRUE)
-source('appStore.R', local=TRUE)
+source('appStatus.R')
+source('appSource.R')
+source('appStore.R')
+
+buildTabList <- function(allItems, viewName, group){
+        paste(
+                lapply(
+                        allItems,
+                        function(x)
+                                paste0(
+                                        x,
+                                        "UI('",
+                                        viewName,
+                                        group,
+                                        'Items',
+                                        x,
+                                        "')")
+                ),
+                collapse = ', '
+        )
+}
+
+singleUiCodeStr <- function(name, uiCode){
+        paste0(
+                name,
+                "UI <- function(id){\n ",
+                "ns <- NS(id)\n ",
+                uiCode,
+                "}")
+}
+
+buildUiCodeStr <- function(allItems){
+        paste(
+                apply(
+                        allItems,
+                        2,
+                        function(x) 
+                                singleUiCodeStr(x['allItemsName'],
+                                                x['allItemsUI'])
+                )
+        )
+}
+
+singleServerLogicstr <- function(name, serverLogic){
+        paste0(
+                name,
+                " <- function(input,output,session){\n",
+                serverLogic,
+                "}")
+}
+
+buildServerLogicStr <- function(allItems){
+        paste(
+                apply(
+                        allItems,
+                        2,
+                        function(x)
+                                singleServerLogicstr(x['allItemsName'],
+                                                     x['allItemsLogic'])
+                ),
+                collapse = '\n '
+        )
+}
+
+singleCallModuleStr <- function(name, group){
+        if(group == 'Status'){
+                paste0(
+                        "dummy <- callModule(",
+                        name,
+                        ", 'desktopStatusItems",
+                        name,
+                        "')\n ",
+                        "dummy <- callModule(",
+                        name,
+                        ", 'mobileStatusItems",
+                        name,
+                        "')")
+        } else {
+                paste0(
+                        "dummy <- callModule(",
+                        name,
+                        ", 'desktopSourceItems",
+                        name,
+                        "')")
+        }
+}
+
+checkAllItems <- function(allItems, group){
+        apply(
+                allItems,
+                2,
+                function(x){
+                        uiCodeStr <- singleUiCodeStr(x['allItemsName'],
+                                                     x['allItemsUI'])
+                        eval(parse(text = uiCodeStr), 
+                             envir=.GlobalEnv)
+                        serverLogicStr <- singleServerLogicstr(
+                                x['allItemsName'],
+                                x['allItemsLogic']
+                        )
+                        eval(parse(text = serverLogicStr), 
+                             envir=.GlobalEnv)
+                        callModuleStr <- singleCallModuleStr(
+                                x['allItemsName'], group)
+                        eval(parse(text = callModuleStr), 
+                             envir=.GlobalEnv)
+                }
+        )
+}    
 
 uiApp <- function(){
          fluidRow(
@@ -8,18 +114,20 @@ uiApp <- function(){
                  column(10,
                         tags$div(class='panel panel-default',
                                  tags$div(class='panel-heading',
+                                          style='padding:0',
                                           tags$h3(class='panel-title pull-left', appTitle,
-                                                  style='font-size:200%'),
+                                                  style='font-size:200%;padding:10px 15px'),
                                           tags$button(id='buttonStore', type='button',
                                                       class='btn btn-default action-button pull-right',
-                                                      style='margin-left:5px',
+                                                      style='padding:15px; border:0; border-radius:0; background-color:#f5f5f5',
                                                       icon('table'), 'Gesammelte Daten'),
                                           tags$button(id='buttonSource', type='button',
                                                       class='btn btn-default action-button pull-right',
-                                                      style='margin-left:5px',
+                                                      style='padding:15px; border:0; border-radius:0; background-color:#f5f5f5; border-left-color: #abda6e; border-left-width: 1px; border-left-style: solid; border-right-color: #abda6e; border-right-width: 1px; border-right-style: solid',
                                                       icon('cloud-download'), 'Datenquellen'),
                                           tags$button(id='buttonVisual', type='button',
                                                       class='btn btn-default action-button pull-right',
+                                                      style='padding:15px; border:0; border-radius:0; background-color:#abda6e; border-left-color: #abda6e; border-left-width: 1px; border-left-style: solid',
                                                       icon('line-chart'), 'Auswertungen'),
                                           tags$div(class='clearfix')
                                           

@@ -1,4 +1,6 @@
-# Email reminders =========================================        
+# functions for sending email reminders
+# last update:2016-07-28
+
 getLocalEmailConfig <- reactive({
         validEmailConfig <- FALSE
         server <- input$mailer_address
@@ -18,9 +20,43 @@ getLocalEmailConfig <- reactive({
           'pwd'=pwd)
 })
 
-emailConfigStatus <- function(repo){
+# fix me !!!
+getPiaEmailConfig <- function(app){
+        vector()
+        # url <- itemsUrl(app[['url']], 
+        #                 schedulerEmailConfigKey())
+        # retVal <- readItems(repo, url)
+        # if(length(retVal) == 0 | 
+        #    nrow(retVal) == 0) {
+        #         vector()
+        # } else {
+        #         retVal
+        # }
+}
+
+# fix me !!!
+getPiaSchedulerEmail <- function(repo) {
+        vector()
+        # url <- itemsUrl(repo[['url']], 
+        #                 schedulerKey())
+        # retVal <- readItems(repo, url)
+        # if(nrow(retVal) == 0) {
+        #         vector()
+        # } else {
+        #         retVal <- retVal[retVal$repo == repo[['app_key']] & 
+        #                                  retVal$task == 'email', ]
+        #         if(nrow(retVal) > 0) {
+        #                 c(id=retVal$id,
+        #                   email=retVal$parameters$address)
+        #         } else {
+        #                 vector()
+        #         }
+        # }
+}
+
+emailConfigStatus <- function(app){
         localMailConfig <- getLocalEmailConfig()
-        piaMailConfig <- getPiaEmailConfig(repo)
+        piaMailConfig <- getPiaEmailConfig(app)
         if (localMailConfig[['valid']]) {
                 # is there already a config in PIA?
                 if (length(piaMailConfig) > 0) {
@@ -31,13 +67,13 @@ emailConfigStatus <- function(repo){
                            (localMailConfig[['pwd']] == piaMailConfig[['pwd']])) {
                                 'config in sync'
                         } else {
-                                updateEmailConfig(repo, 
+                                updateEmailConfig(app, 
                                                   localMailConfig, 
                                                   piaMailConfig[['id']])
                                 'config updated'
                         }
                 } else {
-                        writeEmailConfig(repo, localMailConfig)
+                        writeEmailConfig(app, localMailConfig)
                         'config saved'
                 }
         } else {
@@ -52,10 +88,10 @@ emailConfigStatus <- function(repo){
 }
 
 emailReminderStatus <- reactive({
-        repo <- currRepo()
-        if(length(repo) > 0){
-                piaMailConfig <- getPiaEmailConfig(repo)
-                piaSchedulerEmail <- getPiaSchedulerEmail(repo)
+        app <- currApp()
+        if(length(app) > 0){
+                piaMailConfig <- getPiaEmailConfig(app)
+                piaSchedulerEmail <- getPiaSchedulerEmail(app)
                 piaEmail <- ''
                 piaEmailId <- NA
                 if (length(piaMailConfig) == 0) {
@@ -75,17 +111,17 @@ emailReminderStatus <- reactive({
                                                 value='line_1'
                                         )
                                         goal_structure <- list(
-                                                repo=repo_app,
+                                                app=repo_app,
                                                 fields=goal_fields
                                         )
                                         response_structure <- list(
                                                 goal_structure
                                         )
-                                        content <- 'Was ist dein heutiges Ziel?'
+                                        content <- 'text'
                                         timePattern <- '0 7 * * *'
                                         if (piaEmail == '') {
                                                 writeSchedulerEmail(
-                                                        repo,
+                                                        app,
                                                         localEmail,
                                                         content,
                                                         timePattern,
@@ -93,7 +129,7 @@ emailReminderStatus <- reactive({
                                                 'email saved'
                                         } else {
                                                 updateSchedulerEmail(
-                                                        repo,
+                                                        app,
                                                         localEmail,
                                                         content,
                                                         timePattern,
@@ -122,9 +158,9 @@ emailReminderStatus <- reactive({
 })
 
 output$mail_config <- renderText({
-        repo <- currRepo()
-        if(length(repo) > 0){
-                retVal <- emailConfigStatus(repo)
+        app <- currApp()
+        if(length(app) > 0){
+                retVal <- emailConfigStatus(app)
                 switch(retVal,
                        'config in sync' = 'Benachrichtigungen via Email sind eingerichtet',
                        'not configured' = 'Benachrichtigungen via Email sind noch nicht konfiguiert',

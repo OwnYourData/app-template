@@ -1,3 +1,6 @@
+# functions to filter data in status tab by date
+# last update:2016-07-28
+
 observe({
         if(!is.null(input$dateSelect)){
                 switch(input$dateSelect,

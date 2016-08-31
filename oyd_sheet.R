@@ -1,3 +1,6 @@
+# show available data in an Excel like UI
+# last update:2016-07-28
+
 values = reactiveValues()
 setHot = function(x) values[["dataSheet"]] = x
 
@@ -21,33 +24,40 @@ observe({
                 oldRecords$Ziel <- as.character(oldRecords$Ziel)
                 
                 # check new and updated records
-                repo <- currRepo()
-                updatedRecords <- sqldf('SELECT * FROM newRecords EXCEPT SELECT * FROM oldRecords')
-                if(nrow(updatedRecords)>0){
-                        for(i in 1:nrow(updatedRecords)){
-                                rec <- updatedRecords[i,]
-                                if(!is.na(rec[1])){
-                                        if(!(is.na(rec$Datum) | (as.character(rec$Datum) == ''))) {
-                                                if(is.na(rec$Ziel)) {
-                                                        saveData(repo,
-                                                                 rec$Datum,
-                                                                 NA)
-                                                } else {
-                                                        saveData(repo, 
-                                                                 rec$Datum,
-                                                                 rec$Ziel)
+                app <- currApp()
+                if(length(all.equal(app, logical(0)))>1){
+                        updatedRecords <- sqldf('SELECT * FROM newRecords EXCEPT SELECT * FROM oldRecords')
+                        if(nrow(updatedRecords)>0){
+                                for(i in 1:nrow(updatedRecords)){
+                                        rec <- updatedRecords[i,]
+                                        if(!is.na(rec[1])){
+                                                if(!(is.na(rec$Datum) | (as.character(rec$Datum) == ''))) {
+                                                        if(is.na(rec$Ziel)) {
+                                                                saveDateItem(app,
+                                                                         itemsUrl(app, app[['app_key']]),
+                                                                         as.Date(rec$Datum),
+                                                                         NA)
+                                                        } else {
+                                                                saveDateItem(app, 
+                                                                         itemsUrl(app, app[['app_key']]),
+                                                                         as.Date(rec$Datum),
+                                                                         rec$Ziel)
+                                                        }
                                                 }
                                         }
                                 }
                         }
-                }
                 
-                # check for deleted records
-                deletedRecords <- sqldf('SELECT * FROM oldRecords EXCEPT SELECT * FROM newRecords')
-                if(nrow(deletedRecords) > 0) {
-                        for(i in 1:nrow(deletedRecords)){
-                                rec <- deletedRecords[i,]
-                                saveData(repo, rec$Datum, NA)
+                        # check for deleted records
+                        deletedRecords <- sqldf('SELECT * FROM oldRecords EXCEPT SELECT * FROM newRecords')
+                        if(nrow(deletedRecords) > 0) {
+                                for(i in 1:nrow(deletedRecords)){
+                                        rec <- deletedRecords[i,]
+                                        saveDateItem(app, 
+                                                     itemsUrl(app, app[['app_key']]),
+                                                     rec$Datum, 
+                                                     NA)
+                                }
                         }
                 }
         }
