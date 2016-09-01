@@ -32,6 +32,11 @@ observeEvent(input$mobilePiaSave, ({
         piaUrl <<- isolate(input$pia_urlMobile)
         appKey <<- isolate(input$app_keyMobile)
         appSecret <<- isolate(input$app_secretMobile)
+        app <- setupApp(piaUrl, appKey, appSecret)
+        output$mobileToken <- renderUI({
+                paste('<strong>Token:</strong>',
+                       app[['token']])
+        })
 }))
 
 observeEvent(input$p2prev, ({

@@ -16,11 +16,13 @@ readExtItems <- function(app){
                                 paste0(app[['app_key']],'.extension'))
                 extItems <- readItems(app, url)
                 if(length(extItems)>0){
-                        extItems <- t(as.data.frame(lapply(extItems, 
-                               function(x){
-                                       c(x$id, x$name, x$ui, x$logic, x$group)
-                                
-                        })))
+                        save(extItems, file="tmpExtItems.RData")
+                        extItems <- data.frame(extItems)
+                        # extItems <- t(as.data.frame(lapply(extItems, 
+                        #        function(x){
+                        #                c(x$id, x$name, x$ui, x$logic, x$group)
+                        #         
+                        # })))
                         colnames(extItems) <- c('id', 'name', 'ui', 'logic', 'group')
                         rownames(extItems) <- NULL
                         extItems <- as.data.frame(extItems, stringsAsFactors = FALSE)
@@ -133,11 +135,23 @@ output$mobileUiStatusItemsRender <- renderUI({
                 
         footerStr <- "
                         ,
+                        tabPanel('Datenblatt',
+                                rHandsontableOutput('mobileDataSheet'),
+                                br(),
+                                htmlOutput('mobileDataSheetDirty', inline = TRUE),
+                                conditionalPanel(
+                                        condition = 'output.mobileDataSheetDirty != \"\"',
+                                        tagList(actionButton('mobileSaveSheet', 
+                                                'Daten in PIA speichern', 
+                                                icon=icon('save'))))
+        
+                        ),
                         tabPanel('PIA Einrichtung',
                                 h3('Authentifizierung'),
                                 textInput('pia_urlMobile', 'Adresse:'),
                                 textInput('app_keyMobile', 'Key:'),
                                 textInput('app_secretMobile', 'Secret:'),
+                                htmlOutput('mobileToken'),
                                 actionButton('mobilePiaSave', 'Speichern')
                         )
                 )"

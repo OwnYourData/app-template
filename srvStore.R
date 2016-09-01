@@ -1,7 +1,7 @@
 # functions required in the Store tab
 # last update:2016-07-28
 
-source('oyd_sheet.R', local=TRUE)
+source('srvSheet.R', local=TRUE)
 
 # handle HTML5 Local Storage used for saving PIA connection data
 observe({

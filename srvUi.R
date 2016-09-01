@@ -61,6 +61,10 @@ output$displayVisual <- reactive({
         output$displayStore <- renderText('')
 })
 
+output$dataSheetDirty <- reactive({
+        output$dataSheetDirty <- renderText('')
+})
+
 observeEvent(input$backToApp, {
         updateNavbarPage(session, 'mainPage', selected = appName)
 })

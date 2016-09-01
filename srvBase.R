@@ -60,10 +60,15 @@ r2d <- function(response){
                                                     'error.accessDenied') {
                                                         data.frame()
                                                 } else {
-                                                        retVal
+                                                        # convert list to data.frame
+                                                        do.call(rbind, 
+                                                                lapply(retVal, 
+                                                                       data.frame))
                                                 }
                                         } else {
-                                                retVal
+                                                do.call(rbind, 
+                                                        lapply(retVal, 
+                                                               data.frame))
                                         }
                                 }
                         }

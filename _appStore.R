@@ -1,12 +1,16 @@
 appStore <- function(){
         fluidRow(
                 column(12,
-                       bsAlert('topAlert'),
-                       bsAlert('recordAlert'),
                        h3('Datenblatt'),
-                       helpText('Änderungen an den Daten werden sofort übernommen'),
                        rHandsontableOutput('dataSheet'),
                        br(),
+                       htmlOutput('dataSheetDirty', inline = TRUE),
+                       conditionalPanel(
+                               condition = "output.dataSheetDirty != ''",
+                               tagList(actionButton('saveSheet', 
+                                                    'Daten in PIA speichern', 
+                                                    icon=icon('save')),
+                                       br(),br())),
                        downloadButton('exportCSV', 'CSV Export')
                 )
         )
