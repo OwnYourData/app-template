@@ -1,45 +1,39 @@
-source("uiStatusDateSelect.R")
-source("uiStatusItems.R")
-source("uiStatusItemConfig.R")
+# layout for section "Status"
+# last update: 2016-10-06
+
+source('uiStatusDateSelect.R')
+source('appStatusItems.R')
+# source('uiStatusItemConfig.R')
 
 appStatus <- function(){
         fluidRow(
-                column(12,
+                column(12, 
+                       # uiOutput('desktopUiStatusItemsRender')
                        uiStatusDateSelect(),
-                       bsAlert('noData'),
-                       uiStatusItems()
+                       bsAlert('dataStatus'),
+                       appStatusItems()
                 )
         )
 }
 
-defaultStatTabsName <- c('Tab1', 'Tab2')
-
-defaultStatTabsUI <- c(
-        "
-        tabPanel('Tab1',
-                 textInput(inputId=ns('defaultInput1'), 
-                           'Eingabe1:'),
-                 htmlOutput(outputId = ns('defaultStatusItem1'))
-        )
-        ",
-        "
-        tabPanel('Tab2',
-                 textInput(inputId=ns('defaultInput2'), 
-                           'Eingabe2:'),
-                 htmlOutput(outputId = ns('defaultStatusItem2'))
-        )
-        "
-)
-
-defaultStatTabsLogic <- c(
-        "
-        output$defaultStatusItem1 <- renderUI({
-                input$defaultInput1
-        })
-        ",
-        "
-        output$defaultStatusItem2 <- renderUI({
-                input$defaultInput2
-        })
-        "
-)
+# constants for configurable Tabs
+# defaultStatTabsName <- c('Plot')
+# 
+# defaultStatTabsUI <- c(
+#         "
+#         tabPanel('Plot',
+#                  plotOutput(outputId = ns('bank2Plot'), height = '300px')
+#         )
+#         "
+# )
+# 
+# defaultStatTabsLogic <- c(
+#         "
+#         output$bank2Plot <- renderPlot({
+#                 data <- currData()
+#                 plot(x=data$date, y=data$value, type='l', 
+#                         xlab='Datum', ylab='Euro')
+#         
+#         })
+#         "
+# )

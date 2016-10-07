@@ -1,7 +1,10 @@
 # application specific logic
-# last update:2016-08-10
+# last update: 2016-10-07
 
-source('oyd_dateselect.R', local=TRUE)
-source('oyd_email.R', local=TRUE)
+source('srvDateselect.R', local=TRUE)
+source('srvEmail.R', local=TRUE)
 
-defaultSrcTabLogic <- ""
+# any record manipulations before storing a record
+appData <- function(record){
+        record
+}

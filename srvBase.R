@@ -1,5 +1,5 @@
 # basic functions for accessing PIA
-# last update:2016-08-21
+# last update: 2016-10-07
 
 # Low-level functions to access PIA =======================
 # used header for GET and POST requests
@@ -17,16 +17,24 @@ itemsUrl <- function(url, repo_name) {
 # request token for a plugin (app)
 getToken <- function(pia_url, app_key, app_secret) {
         auth_url <- paste0(pia_url, '/oauth/token')
+        # reduce response timeout to 10s to avoid hanging app
+        # https://curl.haxx.se/libcurl/c/CURLOPT_CONNECTTIMEOUT.html
+        optTimeout <- curlOptions(connecttimeout = 10)
         response <- tryCatch(
                 postForm(auth_url,
                          client_id     = app_key,
                          client_secret = app_secret,
-                         grant_type    = 'client_credentials'),
+                         grant_type    = 'client_credentials',
+                         .opts         = optTimeout),
                 error = function(e) { return(NA) })
         if (is.na(response)) {
                 return(NA)
         } else {
-                return(fromJSON(response[1])$access_token)
+                if(jsonlite::validate(response[1])){
+                        return(fromJSON(response[1])$access_token)
+                } else {
+                        return(NA)
+                }
         }
 }
 
@@ -35,10 +43,14 @@ setupApp <- function(pia_url, app_key, app_secret) {
         app_token <- getToken(pia_url, 
                               app_key, 
                               app_secret)
-        c('url'        = pia_url,
-          'app_key'    = app_key,
-          'app_secret' = app_secret,
-          'token'      = app_token)
+        if(is.na(app_token)){
+                vector()
+        } else {
+                c('url'        = pia_url,
+                  'app_key'    = app_key,
+                  'app_secret' = app_secret,
+                  'token'      = app_token)
+        }
 }
 
 # Read and CRUD Operations for a Plugin (App) =============
@@ -89,8 +101,8 @@ readItems <- function(app, repo_url) {
         h <- basicHeaderGatherer()
         doc <- tryCatch(
                 getURI(url_data, 
-                      .opts=list(httpheader = headers), 
-                      headerfunction = h$update),
+                       .opts=list(httpheader = headers), 
+                       headerfunction = h$update),
                 error = function(e) { return(NA) })
         response <- NA
         respData <- data.frame()
