@@ -5,7 +5,6 @@ values = reactiveValues()
 setHot = function(x) values[["dataSheet"]] = x
 
 preserveDate <- function(data){
-        save(data, appFieldTypes, file='tmpSheet7.RData')
         d <- as.list(data)
         if('date' %in% appFieldTypes){
                 d[appFieldTypes == 'date'] <- 
@@ -50,7 +49,6 @@ bulkUpdateItems <- function(sheetData){
                         sheetData[!(sheetDigest$digest %in% piaDigest$digest), , 
                                   drop=FALSE]
                 recCnt <- nrow(removePiaData) + nrow(createPiaData)
-                save(piaData, url, sheetDigest, piaDigest, removePiaData, createPiaData, recCnt, file="tmpSheet6.RData")
                 if(recCnt > 0){
                         withProgress(message='Daten aktualisieren', 
                                      max=recCnt, {
@@ -70,7 +68,6 @@ bulkUpdateItems <- function(sheetData){
                                                      for(i in 1:nrow(createPiaData)){
                                                              cnt <- cnt + 1
                                                              myTmp <- createPiaData[i, appFields, drop=FALSE]
-                                                             save(createPiaData, cnt, appFields, preserveUTF8, preserveDate, file='tmpSheet8.RData')
                                                              dataItem <- preserveUTF8(preserveDate(
                                                                      createPiaData[i, appFields, drop=FALSE]))
                                                              dataItem <- appData(dataItem)
@@ -102,7 +99,6 @@ observe({
 })
 
 rhotRender <- function(DF){
-        save(DF, file='tmpSheet4.1.RData')
         # write data to Hot
         setHot(DF)
         # nice formatting
@@ -128,7 +124,6 @@ observeEvent(input$saveSheet, {
                 data <- bulkUpdateItems(sheetRecords)
                 output$dataSheet <- renderRHandsontable({
                         suppressWarnings(DF <- hot_dat2DF(sheetRecords, TRUE))
-                        save(DF, file='tmpSheet9.RData')
                         rhotRender(DF)
                 })  
         }
@@ -152,7 +147,6 @@ observeEvent(input$mobileSaveSheet, {
 hot_dat2DF <- function(data, orderDecreasing){
         DF <- data.frame()
         if(nrow(data) > 0){
-                save(data, file='tmpSheet5.RData')
                 data <- data[, appFields, drop=FALSE]
                 data <- data[!is.na(data[appFieldKey]), , drop=FALSE]
                 data <- data[data[appFieldKey] != '', , drop=FALSE]
@@ -160,7 +154,6 @@ hot_dat2DF <- function(data, orderDecreasing){
                 DF <- rbind(data, rep(NA, length(appFields)))
         }
         if(nrow(data) == 0){
-                save(data, appFields, appFieldInits, file='tmpSheet3.RData')
                 initVal <- vector()
                 for(i in 1:length(appFields)){
                         switch(appFieldInits[i],
@@ -205,7 +198,6 @@ hot_dat2DF <- function(data, orderDecreasing){
                                        decreasing = orderDecreasing), , 
                                  drop=FALSE]
                 }
-                save(DF, file='tmpSheet.RData')
                 if(!is.null(nrow(DF))){
                         rownames(DF) <- 1:nrow(DF)
                 }
@@ -221,7 +213,6 @@ output$dataSheet <- renderRHandsontable({
         DF <- data.frame()
         if (is.null(input$dataSheet)) {
                 data <- currData()
-                save(data, appFieldKey, file="tmpSheet1.RData")
                 if(is.null(data[[appFieldKey]])){
                         data <- data.frame()
                 } else {
@@ -230,15 +221,12 @@ output$dataSheet <- renderRHandsontable({
                                                        data[[appFieldKey]] == 'NA'), ]
                         }
                 }
-#                suppressWarnings(DF <- hot_dat2DF(data, TRUE))
-                DF <- hot_dat2DF(data, TRUE)
-                save(DF, data, file='tmpSheet4.RData')
+                suppressWarnings(DF <- hot_dat2DF(data, TRUE))
         } else {
                 suppressWarnings(data <- hot_to_r(input$dataSheet))
                 colnames(data) <- appFields
                 suppressWarnings(DF <- hot_dat2DF(data))
         }
-        save(DF, file='tmpSheet2.RData')
         rhotRender(DF)
 })
 
