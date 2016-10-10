@@ -7,11 +7,11 @@ appTitle <- 'Template'
 app_id <- 'eu.ownyourdata.template'
 
 appFields <- c('text')
+appFieldKey <- 'text'
 appFieldTypes <- c('string')
 appFieldInits <- c('empty')
-appFieldKey <- 'text'
-appFieldsDisplay <- c('Text')
-appFieldsDisplayWidth <- c(600)
+appFieldTitles <- c('Text')
+appFieldWidths <- c(600)
 
 # Version information
 currVersion <- "0.3.0"

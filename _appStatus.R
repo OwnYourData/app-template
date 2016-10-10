@@ -1,8 +1,7 @@
 # layout for section "Status"
-# last update: 2016-10-06
+# last update: 2016-10-10
 
 source('uiStatusDateSelect.R')
-source('appStatusItems.R')
 # source('uiStatusItemConfig.R')
 
 appStatus <- function(){
@@ -11,7 +10,11 @@ appStatus <- function(){
                        # uiOutput('desktopUiStatusItemsRender')
                        uiStatusDateSelect(),
                        bsAlert('dataStatus'),
-                       appStatusItems()
+                       tabsetPanel(type='tabs',
+                                   tabPanel('Tab1', br(),
+                                            p('hello world')
+                                   )
+                       )
                 )
         )
 }
