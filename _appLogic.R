@@ -10,16 +10,15 @@ appData <- function(record){
 }
 
 getSheetRepo <- reactive({
-        app_id
+        appRepos[[input$repoSelect]]
+})
+
+getSheetRepoName <- reactive({
+        input$repoSelect
 })
 
 getRepoStruct <- function(repo){
-        list('fields'      = appFields,
-             'fieldKey'    = appFieldKey,
-             'fieldTypes'  = appFieldTypes,
-             'fieldInits'  = appFieldInits,
-             'fieldTitles' = appFieldTitles,
-             'fieldWidths' = appFieldWidths) 
+        appStruct[[repo]]
 }
 
 repoData <- function(repo){
