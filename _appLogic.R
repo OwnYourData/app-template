@@ -9,14 +9,6 @@ appData <- function(record){
         record
 }
 
-getSheetRepo <- reactive({
-        appRepos[[input$repoSelect]]
-})
-
-getSheetRepoName <- reactive({
-        input$repoSelect
-})
-
 getRepoStruct <- function(repo){
         appStruct[[repo]]
 }

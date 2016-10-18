@@ -7,6 +7,7 @@ appTitle <- 'Template'
 app_id <- 'eu.ownyourdata.template'
 
 # definition of data structure
+currRepoSelect <- ''
 appRepos <- list(Vorlage = 'eu.ownyourdata.template',
                  Verlauf = 'eu.ownyourdata.template.log')
 appStruct <- list(
