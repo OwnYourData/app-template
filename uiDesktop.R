@@ -1,5 +1,5 @@
 # top-level framework for desktop version
-# last update:2016-10-06
+# last update:2016-10-29
 
 source('uiStart.R')
 source('uiApp.R')
@@ -23,7 +23,7 @@ uiDesktop <- function(){
                         windowTitle=paste0(appTitle, ' | OwnYourData'),
                         tabPanel(HTML(paste0('hidden', 
                                              '</a></li>',
-                                             '<li><a id="returnPIAlink" href="#">zurück zur PIA'))
+                                             '<li><a id="returnPIAlink" href="#">zum Datentresor'))
                         ),
                         tabPanel(appTitle,
                                  value = appName,

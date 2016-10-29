@@ -23,3 +23,16 @@ repoData <- function(repo){
         }
         data
 }
+
+currData <- reactive({
+        # list any input controls that effect currData
+        app <- currApp()
+        if(length(app) > 0) {
+                url <- itemsUrl(app[['url']], 
+                                paste0(app[['app_key']]))
+                piaData <- readItems(app, url)
+        } else {
+                piaData <- data.frame()
+        }
+        piaData
+})

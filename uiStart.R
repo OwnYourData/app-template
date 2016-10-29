@@ -1,5 +1,5 @@
 # dialog with assisstant to configure connection to PIA and other items
-# last update:2016-10-06
+# last update:2016-10-29
 
 uiStart <- function(){
         bsModal('startConfig', 'Assistent zur Konfiguration', 'launchDialog', size='large',
@@ -10,9 +10,9 @@ uiStart <- function(){
                                            br(),br(),
                                            actionButton("p1next", "Weiter"),
                                            style = "primary"),
-                           bsCollapsePanel("PIA (Schritt 2 von 4)",
+                           bsCollapsePanel("Datentresor (Schritt 2 von 4)",
                                            value="PIA",
-                                           "Trage hier die Verbindungdaten zu deiner PIA und den darin gespeicherten Daten ein. Du findest diese Informationen in der PIA im Menü 'Entitäten' unter 'Plugin'; gehe dort zur aktuellen App und klicke zum Anzeigen der Informationen auf 'Bearbeiten'.",
+                                           "Trage hier die Verbindungdaten zu deinem Datentresor und den darin gespeicherten Daten ein. Du findest diese Informationen im Datentresor im Menü 'Entitäten' unter 'Plugin'; gehe dort zur aktuellen App und klicke zum Anzeigen der Informationen auf 'Bearbeiten'.",
                                            br(),br(),
                                            fluidRow(
                                                    column(6,
@@ -24,7 +24,7 @@ uiStart <- function(){
                                                           uiOutput('currentToken'),
                                                           conditionalPanel(
                                                                   condition = "output.currentToken != ''",
-                                                                  actionButton('disconnectPIA', 'Verbindung zu PIA trennen', 
+                                                                  actionButton('disconnectPIA', 'Verbindung zum Datentresor trennen', 
                                                                                icon('chain-broken'))
                                                           ),
                                                           br(),
@@ -37,7 +37,7 @@ uiStart <- function(){
                                            style = "info"),
                            bsCollapsePanel("Email-Konfiguration - Optional (Schritt 3 von 4)",
                                            value = "Email",
-                                           "Gib hier die Verbindungsdaten zu deinem Emailkonto an",
+                                           "Falls du ein eigenes Emailkonto zum Versenden und Empfangen von Emails verwenden möchtest, kannst du hier die notwendigen Verbindungsdaten eingeben. Falls die Konfiguration leer bleibt, wird der Emailserver von OwnYourData verwendet.",
                                            br(),br(),
                                            textInput('modalMailerAddress', 'Mail Server:'),
                                            numericInput('modalMailerPort', 'Port:', 0),

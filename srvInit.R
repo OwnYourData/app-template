@@ -1,5 +1,5 @@
 # functions for handling the initial dialog when starting the app
-# last update: 2016-07-27
+# last update: 2016-10-29
 
 observe({
         session$sendCustomMessage(type='setPiaUrl',
@@ -27,13 +27,25 @@ observe({
         
         app <- setupApp(piaUrl, appKey, appSecret)
         if(urlParamExist){
-                updateStore(session, "pia_url", piaUrl)
-                updateStore(session, "app_key", appKey)
-                updateStore(session, "app_secret", appSecret)
-                createAlert(session, 'urlStatus', alertId = 'myUrlStatus',
-                            style = 'info', append = FALSE,
-                            title = 'Neue PIA Verbindung',
-                            content = 'Beim Öffnen wurden neue Verbindungsdaten zur PIA übergeben und gespeichert.')
+                if(is.null(input$store$pia_url) |
+                   is.null(input$store$app_key) |
+                   is.null(input$store$app_secret)){
+                        closeAlert(session, 'myUrlStatus')
+                } else {
+                        if((input$store$pia_url == urlParams[['PIA_URL']]) &
+                           (input$store$app_key == urlParams[['APP_KEY']]) &
+                           (input$store$app_secret == urlParams[['APP_SECRET']])){
+                                
+                        } else {
+                                updateStore(session, "pia_url", piaUrl)
+                                updateStore(session, "app_key", appKey)
+                                updateStore(session, "app_secret", appSecret)
+                                createAlert(session, 'urlStatus', alertId = 'myUrlStatus',
+                                            style = 'info', append = FALSE,
+                                            title = 'Verbindung zu neuem Datentresor',
+                                            content = 'Beim Öffnen wurden neue Verbindungsdaten zum Datentresor übergeben und gespeichert.')
+                        }
+                }
         } else {
                 closeAlert(session, 'myUrlStatus')
         }
@@ -127,7 +139,7 @@ observeEvent(input$disconnectPIA, {
                     title = 'PIA Verbindung',
                     content = paste0('Es sind keine oder nur unvollständige Verbindungsdaten vorhanden. Wähle im Menü ',
                                      icon('gear'),
-                                     ' rechts oben "Konfiguration" und überprüfe die Verbindungsdaten zu deiner PIA!'))
+                                     ' rechts oben "Konfiguration" und überprüfe die Verbindungsdaten zu deinem Datentresor!'))
 })
 
 observeEvent(input$p2next, ({
@@ -148,7 +160,7 @@ observeEvent(input$p2next, ({
                             title = 'PIA Verbindung',
                             content = paste0('Es sind keine oder nur unvollständige Verbindungsdaten vorhanden. Wähle im Menü ',
                                              icon('gear'),
-                                             ' rechts oben "Konfiguration" und überprüfe die Verbindungsdaten zu deiner PIA!'))
+                                             ' rechts oben "Konfiguration" und überprüfe die Verbindungsdaten zu deinem Datentresor!'))
         } else {
                 closeAlert(session, 'myPiaStatus')
         }
