@@ -24,7 +24,7 @@ my_packages = c('shiny',
 
 install_if_missing = function(p) {
   if (p %in% rownames(installed.packages()) == FALSE) {
-    install.packages(p, dependencies = TRUE)
+    install.packages(p, repos='http://cran.r-project.org', dependencies=TRUE)
   }
   else {
     cat(paste('Skipping already installed package:', p, "\n"))
