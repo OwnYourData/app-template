@@ -6,7 +6,7 @@
 #   runApp('~/cs/ownyourdata/apps/template', host='0.0.0.0', port=1234)
 # - copy files to Github
 #   cp -r *.R *.r *.txt www github/app-template; cd github/app-template;
-        #   for i in app* ; do mv "$i" "_$i" ; done
+#   for i in app* ; do mv "$i" "_$i" ; done
 
 # UI files ================================================
 source("uiInit.R")
