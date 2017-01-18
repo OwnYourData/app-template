@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APP="app-template_armhf"
+APP_GIT="app-template"
 APP_NAME="template"
 
 # read commandline options
@@ -37,7 +38,7 @@ if $REFRESH; then
     if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
         cd ~/docker
         rm -rf $APP
-        svn checkout https://github.com/OwnYourData/$APP/trunk/docker/$APP
+        svn checkout https://github.com/OwnYourData/$APP_GIT/trunk/docker/$APP
         echo "refreshed"
         cd ~/docker/$APP
         return
