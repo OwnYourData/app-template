@@ -31,7 +31,13 @@ uiInit <- function(){
                         });")),
                 tags$script(
                         'Shiny.addCustomMessageHandler("setPiaUrl", function(x) {      
-                        $("#returnPIAlink").attr("href", x);
+                                $("#returnPIAlink").attr("href", x);
+                        })'
+                ),
+                tags$script(
+                        'Shiny.addCustomMessageHandler("openUrlInNewTab", function(x) {      
+                                var win = window.open(x, "_blank");
+                                win.focus();
                         })'
                 ),
                 tags$script(
@@ -50,5 +56,5 @@ uiInit <- function(){
                 tags$head(
                         tags$style(HTML(".navbar .navbar-nav {float: right}"))
                 )
-        )
+                )
 }

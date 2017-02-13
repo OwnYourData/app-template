@@ -11,7 +11,6 @@
 # UI files ================================================
 source('uiInit.R')
 source('uiDesktop.R')
-# source('uiMobile.R')
 
 # App specific files ======================================
 source('appLib.R')
