@@ -1,5 +1,5 @@
 # global constants available to the app
-# last update:2016-10-17
+# last update:2016-01-17
 
 # constants required for every app
 appName <- 'template'
