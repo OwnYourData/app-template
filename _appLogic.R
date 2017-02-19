@@ -1,5 +1,5 @@
 # application specific logic
-# last update: 2016-10-07
+# last update: 2017-02-13
 
 source('srvDateselect.R', local=TRUE)
 source('srvEmail.R', local=TRUE)
@@ -23,4 +23,9 @@ repoData <- function(repo){
                 data <- readItems(app, url)
         }
         data
+}
+
+# anything that should run only once during startup
+appStart <- function(){
+
 }

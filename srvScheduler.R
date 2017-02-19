@@ -16,3 +16,19 @@ readSchedulerItems <- reactive({
                 data.frame()
         }
 })
+
+readSchedulerItemsFunction <- function(){
+        app <- currApp()
+        if(length(app) > 0){
+                url <- itemsUrl(app[['url']], schedulerKey)
+                allItems <- readItems(app, url)
+                if(nrow(allItems) == 0){
+                        data.frame()
+                } else {
+                        allItems[allItems$app == app[['app_key']] & 
+                                         !is.na(allItems$app), ]
+                }
+        } else {
+                data.frame()
+        }
+}

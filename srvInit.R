@@ -71,6 +71,7 @@ observe({
                 updateTextInput(session, 'modalPiaSecret', value=appSecret)
                 output$currentToken <- renderText('')
         }
+        appStart()
 })
 
 output$connectError <- renderUI({

@@ -75,12 +75,12 @@ r2d <- function(response){
                                                         # convert list to data.frame
                                                         do.call(bind_rows, 
                                                                 lapply(retVal, 
-                                                                       function(x) data.frame(x, stringsAsFactors = FALSE)))
+                                                                       function(x) data.frame(t(sapply(x,c)), stringsAsFactors = FALSE)))
                                                 }
                                         } else {
                                                 do.call(bind_rows, 
                                                         lapply(retVal, 
-                                                               function(x) data.frame(x, stringsAsFactors = FALSE)))
+                                                               function(x) data.frame(t(sapply(x,c)), stringsAsFactors = FALSE)))
                                         }
                                 }
                         }

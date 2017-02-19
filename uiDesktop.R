@@ -27,14 +27,10 @@ uiDesktop <- function(){
                         ),
                         tabPanel(appTitle,
                                  value = appName,
-                                 fluidRow(
-                                         column(1),
-                                         column(10,
                                                 tagList(
                                                         bsAlert('urlStatus'),
                                                         bsAlert('piaStatus'),
-                                                        bsAlert('taskInfo'))
-                                         )
+                                                        bsAlert('taskInfo')
                                  ),
                                  uiApp()
                         ),
