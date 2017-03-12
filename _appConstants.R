@@ -5,6 +5,8 @@
 appName <- 'template'
 appTitle <- 'Template'
 app_id <- 'eu.ownyourdata.template'
+helpUrl <- 'https://www.ownyourdata.eu/apps/template'
+mobileUrl <- 'https://template-mobil.datentresor.org'
 
 # definition of data structure
 currRepoSelect <- ''
