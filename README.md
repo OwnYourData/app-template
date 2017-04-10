@@ -9,15 +9,14 @@ Erstelle eine neue OwnYourData App anhand folgender Schritte:
 1. App Struktur einrichten    
 führe folgende Befehle auf der Kommandozeile aus:    
 ```bash
-    git clone git@github.com:OwnYourData/app-template.git
-    mkdir new_app
-    cp -R app-template/ new_app/
-    rm -rf app-template/
-    cd new_app
-    for i in _app* ; do mv "$i" $(echo $i | cut -c 2-) ; done
-```    
-    
-    *Überprüfung:* öffne global.R in R-Studio und es sollte möglich sein, die Shiny Applikation zu starten.    
+git clone git@github.com:OwnYourData/app-template.git
+mkdir new_app
+cp -R app-template/ new_app/
+rm -rf app-template/
+cd new_app
+for i in _app* ; do mv "$i" $(echo $i | cut -c 2-) ; done
+```
+*Überprüfung:* öffne global.R in R-Studio und es sollte möglich sein, die Shiny Applikation zu starten.    
 
 2. Verbindung zum Datentresor aufbauen
     erstelle das Manifest mit der Datei appManifest.txt    
