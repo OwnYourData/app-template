@@ -6,7 +6,9 @@
 ###########################################################
 # Update this line with the R packages to install:
 
-my_packages = c('shiny', 
+my_packages = c('Rcpp',
+                'xml2',
+                'shiny', 
                 'shinyBS', 
                 'devtools',
                 'RCurl', 
